@@ -140,6 +140,29 @@ export default {
     const metaTitle = this.drink.metaTitle || this.drink.name || 'Open Drinks';
     const metaDescription =
       this.drink.metaDescription || this.drink.description || 'Open Source Drink Recipes';
+
+    const formatIngredient = ing => {
+      if (!ing) return '';
+      const quantity = ing.quantity ? String(ing.quantity).trim() : '';
+      const measure = ing.measure ? String(ing.measure).trim() : '';
+      const ingredient = ing.ingredient ? String(ing.ingredient).trim() : '';
+      return [quantity, measure, ingredient].filter(Boolean).join(' ');
+    };
+
+    const recipeIngredient = Array.isArray(this.drink.ingredients)
+      ? this.drink.ingredients.map(formatIngredient).filter(Boolean)
+      : [];
+
+    const recipeInstructions = Array.isArray(this.drink.directions)
+      ? this.drink.directions
+          .map(step => (step ? String(step).trim() : ''))
+          .filter(Boolean)
+          .map((text, i) => ({
+            '@type': 'HowToStep',
+            position: i + 1,
+            text,
+          }))
+      : [];
     return {
       title: metaTitle,
       titleTemplate: '%s | Open Drinks',
@@ -210,6 +233,18 @@ export default {
             url: `https://opendrinks.io${window.location.pathname}`,
             description: metaDescription,
             image: `https://opendrinks.io${this.drink.img}`,
+            recipeIngredient,
+            recipeInstructions,
+            keywords: Array.isArray(this.drink.keywords)
+              ? this.drink.keywords.join(', ')
+              : undefined,
+            author: this.drink.github
+              ? {
+                  '@type': 'Person',
+                  name: this.drink.github,
+                  url: `https://github.com/${this.drink.github}`,
+                }
+              : undefined,
           },
         },
       ],
