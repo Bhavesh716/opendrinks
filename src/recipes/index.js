@@ -66,11 +66,13 @@ async function getSimilarRecipe(id) {
       tags: [],
     });
 
-    currIngredients.forEach(ingredient => {
-      if (ingredients.includes(ingredient)) {
-        similarities[similarities.length - 1].tags.push(ingredient);
-      }
-    });
+    if (currIngredients && ingredients) {
+      currIngredients.forEach(ingredient => {
+        if (ingredients.includes(ingredient)) {
+          similarities[similarities.length - 1].tags.push(ingredient);
+        }
+      });
+    }
 
     if (currKeywords && keywords) {
       currKeywords.forEach(keyword => {
