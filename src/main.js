@@ -3,8 +3,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
 import './assets/css/main.css';
 
-import { createApp, computed, getCurrentInstance } from 'vue';
-import { createUnhead, useHead } from '@unhead/vue';
+import { createApp } from 'vue';
+import { createHead } from '@unhead/vue/legacy';
+import { VueHeadMixin } from '@unhead/vue';
 import {
   createBootstrap,
   Components as BVNComponents,
@@ -19,20 +20,9 @@ import i18n from './i18n';
 
 const app = createApp(App);
 
-// @unhead/vue — manages <head> reactively
-const head = createUnhead();
-app.use(head);
-
-// Global mixin so Options API components can define a head() function
-app.mixin({
-  setup() {
-    const inst = getCurrentInstance();
-    if (inst?.type?.head) {
-      const headFn = inst.type.head;
-      useHead(computed(() => headFn.call(inst.proxy)));
-    }
-  },
-});
+// @unhead/vue/legacy — proper Vue plugin with Options API head() support
+app.use(createHead());
+app.mixin(VueHeadMixin);
 
 app.use(createBootstrap());
 

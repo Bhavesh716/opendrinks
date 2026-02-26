@@ -197,6 +197,18 @@ export default {
           .filter(Boolean)
           .map((text, i) => ({ '@type': 'HowToStep', position: i + 1, text }))
       : [];
+    const drinkKeywords = Array.isArray(this.drink.keywords)
+      ? this.drink.keywords.map(k => k.toLowerCase())
+      : [];
+    const getRecipeCategory = () => {
+      if (drinkKeywords.includes('alcoholic')) return 'Cocktail';
+      if (drinkKeywords.includes('smoothie')) return 'Smoothie';
+      if (drinkKeywords.includes('coffee')) return 'Coffee Drink';
+      if (drinkKeywords.includes('tea')) return 'Tea';
+      if (drinkKeywords.includes('juice')) return 'Juice';
+      return 'Drink';
+    };
+    const imageUrl = this.drink.img ? `https://opendrinks.io${this.drink.img}` : undefined;
     return {
       title: metaTitle,
       titleTemplate: title => `${title} | Open Drinks`,
@@ -208,11 +220,11 @@ export default {
         { property: 'og:site_name', content: 'Open Drinks' },
         { property: 'og:url', content: `https://opendrinks.io${window.location.pathname}` },
         { property: 'og:description', content: metaDescription },
-        { property: 'og:image', content: `https://opendrinks.io${this.drink.img}` },
+        { property: 'og:image', content: imageUrl },
         { property: 'og:image:alt', content: this.drink.name },
         { itemprop: 'name', content: this.drink.name },
         { itemprop: 'description', content: metaDescription },
-        { itemprop: 'image', content: `https://opendrinks.io${this.drink.img}` },
+        { itemprop: 'image', content: imageUrl },
       ],
       script: [
         {
@@ -223,9 +235,10 @@ export default {
             name: this.drink.name,
             url: `https://opendrinks.io${window.location.pathname}`,
             description: metaDescription,
-            image: `https://opendrinks.io${this.drink.img}`,
+            image: imageUrl ? [imageUrl] : undefined,
             recipeIngredient,
             recipeInstructions,
+            recipeCategory: getRecipeCategory(),
             keywords: Array.isArray(this.drink.keywords)
               ? this.drink.keywords.join(', ')
               : undefined,
