@@ -2,12 +2,13 @@
   "name": "opendrinks",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && npm run sitemap",
+    "build": "vue-cli-service build && npm run prerender:recipes && npm run sitemap",
     "test:unit": "NODE_OPTIONS=--no-deprecation vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "format": "prettier --config .prettierrc \"./**/*.{vue,js}\" --write",
     "function-build": "netlify-lambda build .netlify/functions-src -c .netlify/webpack.functions.js",
     "function-serve": "netlify-lambda serve .netlify/functions-src -c .netlify/webpack.functions.js",
+    "prerender:recipes": "node scripts/prerender_recipes.js",
     "sitemap": "node scripts/sitemap_generator.js",
     "test": "npm run validate && npm run test:unit",
     "validate": "node scripts/validate_recipes.js"
