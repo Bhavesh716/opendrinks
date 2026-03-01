@@ -136,7 +136,7 @@ function injectBody(html, bodyMarkup) {
 }
 
 function renderHead(recipe, slug, imagePath) {
-  const url = `${SITE_URL}/recipe/${slug}`;
+  const url = `${SITE_URL}/recipe/${slug}/`;
   const pageTitle = `Open Drinks - ${recipe.name}`;
   const metaDescription = buildDescription(recipe);
   const recipeIngredient = buildRecipeIngredientList(recipe);
@@ -222,7 +222,7 @@ function renderBody(recipe, slug, imagePath) {
       ${ingredients ? `<section><h2>Ingredients</h2><ul>${ingredients}</ul></section>` : ''}
       ${directions ? `<section><h2>Directions</h2><ol>${directions}</ol></section>` : ''}
       ${sourceMarkup}
-      <p><a href="${escapeAttribute(`/recipe/${slug}`)}">Open the interactive recipe page</a></p>
+      <p><a href="${escapeAttribute(`/recipe/${slug}/`)}">Open the interactive recipe page</a></p>
     </main>
   `);
 }

@@ -46,7 +46,7 @@ function buildSitemap(recipes) {
   });
 
   recipes.forEach(file => {
-    sitemap.write({ url: `/recipe/${file.filename}`, changefreq: 'weekly' });
+    sitemap.write({ url: `/recipe/${file.filename}/`, changefreq: 'weekly' });
   });
 
   sitemap.end();
