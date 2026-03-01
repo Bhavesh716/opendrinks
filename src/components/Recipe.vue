@@ -178,9 +178,8 @@ export default {
     },
   },
   head() {
-    const metaTitle = this.drink.metaTitle || this.drink.name || 'Open Drinks';
-    const metaDescription =
-      this.drink.metaDescription || this.drink.description || 'Open Source Drink Recipes';
+    const pageTitle = this.drink.name ? `Open Drinks - ${this.drink.name}` : 'Open Drinks';
+    const metaDescription = this.drink.description || 'Open Source Drink Recipes';
     const formatIngredient = ing => {
       if (!ing) return '';
       const quantity = ing.quantity ? String(ing.quantity).trim() : '';
@@ -211,14 +210,13 @@ export default {
     const imageUrl = this.drink.img ? `https://opendrinks.io${this.drink.img}` : undefined;
     const url = `https://opendrinks.io${window.location.pathname}`;
     return {
-      title: metaTitle,
-      titleTemplate: '%s | Open Drinks',
+      title: pageTitle,
       link: [{ rel: 'canonical', href: url }],
       meta: [
         // Basic SEO
         { name: 'description', content: metaDescription },
         // Open Graph
-        { property: 'og:title', content: metaTitle },
+        { property: 'og:title', content: pageTitle },
         { property: 'og:type', content: 'article' },
         { property: 'og:url', content: url },
         { property: 'og:site_name', content: 'Open Drinks' },
@@ -227,17 +225,17 @@ export default {
         ...(imageUrl
           ? [
               { property: 'og:image', content: imageUrl },
-              { property: 'og:image:alt', content: metaTitle },
+              { property: 'og:image:alt', content: this.drink.name },
             ]
           : []),
         // Twitter / X
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: metaTitle },
+        { name: 'twitter:title', content: pageTitle },
         { name: 'twitter:description', content: metaDescription },
         ...(imageUrl
           ? [
               { name: 'twitter:image', content: imageUrl },
-              { name: 'twitter:image:alt', content: metaTitle },
+              { name: 'twitter:image:alt', content: this.drink.name },
             ]
           : []),
       ],

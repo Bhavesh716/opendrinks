@@ -1,8 +1,6 @@
 {
     "name": "Argentinian Mate",
     "description": "Mate is an extremely popular beverage in Argentina. Made from a bitter herb, called yerba mate, the drink has an extensive history and a wealth of rituals and customs surrounding its consumption. Most foreigners find mate bitter, perhaps even unsavory, but Argentines adore it.",
-    "metaTitle": "Argentinian Mate Guide (How to Prepare Yerba Mate Traditionally)",
-    "metaDescription": "How to prepare traditional Argentinian mate with yerba mate and hot water (~80°C). Step-by-step preparation and tips for using a bombilla and gourd.",
     "github": "guido97",
     "ingredients": [
         {
@@ -38,4 +36,3 @@
         "Friendly"
     ]
 }
-
